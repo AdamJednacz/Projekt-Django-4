@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    
+    <main>
+        <div class="container">
+            <h1>Project Management</h1>
+            <div class="project_form">
+                <h2>Create a new project</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ project_form.title }}
+                    {{ project_form.description }}
+                    <label>Start Date</label>
+                    {{ project_form.start_date }}
+                    <label>End Date</label>
+                    {{ project_form.end_date }}
+                    {{ project_form.photo }}
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+            <div class="projects">
+                <h2>Projects</h2>
+                {% for project in projects_list %}
+                    <a class="project" href="{% url 'project_detail' project.id %}">
+                        <img src="{{project.photo.url }}" alt="{{ project.title }}" width="100">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description }}</p>
+                        <p><strong>Start Date:</strong> {{ project.start_date }}</p>
+                        <p><strong>End Date:</strong> {{ project.end_date }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
 </body>
 </html>
