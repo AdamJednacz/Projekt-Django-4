@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Project,Task,Comment
+from .models import Project,Task
 
 class ProjectForm(forms.ModelForm):
     title = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Title'}))
@@ -20,15 +20,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = '__all__'        
+        fields = ['title', 'description', 'date']     
 
 
 
-
-class CommentForm(forms.ModelForm):
-    author = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Author'}))
-    content = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Content'}))
-
-    class Meta:
-        model = Comment
-        fields = '__all__'

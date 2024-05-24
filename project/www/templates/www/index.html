@@ -4,12 +4,15 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'reset.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+
     <title>Document</title>
 </head>
 <body>
-    <main>
+    <main> 
+        <h1>Project Management</h1>
         <div class="container">
-            <h1>Project Management</h1>
             <div class="project_form">
                 <h2>Create a new project</h2>
                 <form method="post" enctype="multipart/form-data">
@@ -26,15 +29,17 @@
             </div>
             <div class="projects">
                 <h2>Projects</h2>
-                {% for project in projects_list %}
-                    <a class="project" href="{% url 'project_detail' project.id %}">
-                        <img src="{{project.photo.url }}" alt="{{ project.title }}" width="100">
-                        <h3>{{ project.title }}</h3>
-                        <p>{{ project.description }}</p>
-                        <p><strong>Start Date:</strong> {{ project.start_date }}</p>
-                        <p><strong>End Date:</strong> {{ project.end_date }}</p>
-                    </a>
-                {% endfor %}
+                    <div class="projects_list">
+                    {% for project in projects_list %}
+                        <a class="project" href="{% url 'project_detail' project.id %}">
+                            <img class="photo" src="{{project.photo.url }}" alt="{{ project.title }}" width="100">
+                            <h2>{{ project.title }}</h2>
+                            <p><span>Description:</span>{{ project.description }}</p>
+                            <p><span>Start Date:</span> {{ project.start_date }}</p>
+                            <p><span>End Date:</span> {{ project.end_date }}</p>
+                        </a>
+                    {% endfor %}
+                    </div>
             </div>
         </div>
     </main>

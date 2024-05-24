@@ -1,15 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ project.name }}</title>
+    <link rel="stylesheet" href="{% static 'project_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'reset.css' %}">
+    <title>{{ project.title }}</title>
 </head>
 <body>
-    <img src="{{project.photo.url }}" alt="{{ project.title }}" width="100">
-    <h3>{{ project.title }}</h3>
-    <p>{{ project.description }}</p>
-    <p><strong>Start Date:</strong> {{ project.start_date }}</p>
-    <p><strong>End Date:</strong> {{ project.end_date }}</p>
+    <header class="header">
+        <div class="container"> 
+        <a href="{%url 'index' %}"><button>Back to Create Project</button></a>
+        </div>  
+    </header>
+    <section class="project_detail">
+       
+        <div class="container">
+           
+            <div class="project">
+                <img class="photo" src="{{ project.photo.url }}" alt="{{ project.title }}" width="100">
+                <h2>{{ project.title }}</h2>
+                <p><span>Description:</span>{{ project.description }}</p>
+                <p><span>Start Date:</span> {{ project.start_date }}</p>
+                <p><span>End Date:</span> {{ project.end_date }}</p>
+            </div>
+        </div>
+    </section>
+    <section class="tasks_section">
+        <div class="container">
+            <form class="task_form" method="post" enctype="multipart/form-data">
+                <h2>Create Task</h2>
+                {% csrf_token %}
+                {{ task_form.title }}
+                <label>Date</label>
+                {{ task_form.date }}
+                {{ task_form.description }}
+               
+                <button type="submit">Save</button>
+            </form>
+            <div class="tasks">
+                <h2>Tasks:</h2>
+                <div class="tasks_list">
+                    {% for task in task_list %}
+                        <div class="task">
+                            <div class="task_data">
+                                <h2><span>{{ task.title }}</span></h2>
+                                <p><span>Date:</span> {{ task.date }}</p>
+                                <p class="description"><span>Description:</span>{{ task.description }}</p>
+                            </div>
+                            <form class="done" method="post" action="{% url 'done' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="task_id" value="{{task.id }}">
+                                {% if task.done_set.exists %}
+                                <button type="submit">Yes</button>
+                                {% else %}
+                                <button type="submit">No</button>
+                                {% endif %}
+                                
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

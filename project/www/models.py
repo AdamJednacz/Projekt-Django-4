@@ -13,16 +13,15 @@ class Task(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=100)
     date = models.DateField()
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='tasks')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
-
-class Comment(models.Model):
-    author = models.CharField(max_length=100)
-    content = models.TextField(max_length=100)
+    
+    
+class Done(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='comments')
-
+    value = models.IntegerField(default=0)  # Default value changed to 0
     def __str__(self):
-        return f'Comment by {self.author}'
+        return f'Like on {self.task }'
