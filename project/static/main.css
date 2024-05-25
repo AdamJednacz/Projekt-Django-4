@@ -4,11 +4,13 @@ main{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
 }
+
+
 main > .container{
     margin-top: 2rem;
 }
+
 h1,h2{
     text-align: center;
     margin-bottom: 1rem;
@@ -21,11 +23,6 @@ h1,h2{
     border-radius: 2rem;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
-
-
-
-/* CSS */
-
 
 
 .projects{

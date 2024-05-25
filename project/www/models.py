@@ -22,6 +22,6 @@ class Task(models.Model):
 class Done(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    value = models.IntegerField(default=0)  # Default value changed to 0
+    value = models.IntegerField(default=0) 
     def __str__(self):
         return f'Like on {self.task }'

@@ -53,9 +53,9 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="task_id" value="{{task.id }}">
                                 {% if task.done_set.exists %}
-                                <button type="submit">Yes</button>
-                                {% else %}
-                                <button type="submit">No</button>
+                                <button type="submit">Done: Yes</button>
+                                {% else %} 
+                                <button type="submit">Done: No</button>
                                 {% endif %}
                                 
                             </form>
